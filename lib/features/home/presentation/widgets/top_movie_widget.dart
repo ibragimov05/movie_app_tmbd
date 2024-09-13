@@ -17,17 +17,17 @@ class TopMovieWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 210,
-      color: AppColors.mainColor,
+      decoration: BoxDecoration(
+        color: AppColors.mainColor,
+        borderRadius: BorderRadius.circular(16)
+
+      ),
       margin: EdgeInsets.only(left: index == 0 ? 16 : 0),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
-            clipBehavior: Clip.hardEdge,
+          SizedBox(
             width: 180,
-            decoration: const BoxDecoration(
-              borderRadius: AppUtils.kBorderRadius16,
-            ),
             child: Image.network(
               Constants.imageBaseUrl + movie.posterPath,
               fit: BoxFit.cover,

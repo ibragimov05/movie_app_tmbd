@@ -10,6 +10,12 @@ abstract class Constants {
   static const String popular = 'popular';
   static const String topRated = 'top_rated';
   static const String upcoming = 'discover';
+  static const List<String> movieCategories = [
+    'Now playing',
+    'Upcoming',
+    'Top rated',
+    'Popular',
+  ];
 
   /// tab box labels
   static const List<String> tabBoxLabels = [

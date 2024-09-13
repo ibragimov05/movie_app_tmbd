@@ -21,8 +21,19 @@ class _SliverTabBar extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: _SliverAppBarDelegate(
-        TabBar(
-          tabs: List.generate(4, (index) => const Tab(text: 'Ma\'lumot')),
+        Container(
+          color: AppColors.mainColor,
+          child: TabBar(
+            isScrollable: true,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white,
+            dividerColor: Colors.transparent,
+            indicatorColor: const Color(0xFF3A3F47),
+            tabs: List.generate(
+              4,
+              (index) => Tab(text: Constants.movieCategories[index]),
+            ),
+          ),
         ),
       ),
     );
@@ -102,13 +113,13 @@ class _SliverTopMoviesListView extends StatelessWidget {
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate(this._tabBar);
 
-  final TabBar _tabBar;
+  final Widget _tabBar;
 
   @override
-  double get minExtent => _tabBar.preferredSize.height;
+  double get minExtent => 40;
 
   @override
-  double get maxExtent => _tabBar.preferredSize.height;
+  double get maxExtent => 40;
 
   @override
   Widget build(
@@ -120,7 +131,5 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
-  }
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) => false;
 }
