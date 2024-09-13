@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app_tmbd/features/home/presentation/page/home_page.dart';
 import 'package:movie_app_tmbd/features/main/presentation/page/main_page.dart';
+import 'package:movie_app_tmbd/features/movie_detail/presentation/pages/movie_detail/movie_detail_page.dart';
 import 'package:movie_app_tmbd/features/others/presentation/pages/splash/splash_page.dart';
 
 part 'route_names.dart';
@@ -29,6 +30,15 @@ final GoRouter router = GoRouter(
       name: Routes.home,
       parentNavigatorKey: rootNavigatorKey,
       builder: (_, __) => const HomePage(),
+    ),
+    GoRoute(
+      path: "${Routes.movieDetail}/:movieId",
+      name: Routes.movieDetail,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (_, state) {
+        final movieId = state.pathParameters['movieId'];
+        return MovieDetailPage(movieId: movieId!);
+      },
     ),
   ],
 );

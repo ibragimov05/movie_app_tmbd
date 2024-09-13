@@ -7,4 +7,5 @@ sealed class Routes {
 
   static const String home = '/home';
   static const String main = '/main';
+  static const String movieDetail = '/movie-detail';
 }
