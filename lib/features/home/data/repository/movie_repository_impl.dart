@@ -10,8 +10,13 @@ class MovieRepositoryImpl implements MovieRepository {
     required MovieRequest request,
   }) async {
     try {
+      final String url =
+          'movie/${request.category}?language=en-US&page=${request.page}';
+
       final Response<dynamic> response = await _dio.get(
-        'movie/${request.category}?language=en-US&page=${request.page}',
+        request.category == Constants.upcoming
+            ? _upcomingUrl(page: request.page)
+            : url,
       );
 
       return Right<Failure, MovieResponse>(
@@ -31,4 +36,7 @@ class MovieRepositoryImpl implements MovieRepository {
       );
     }
   }
+
+  String _upcomingUrl({required int page}) =>
+      '${Constants.upcomingRemainingUrl}page=$page&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${DateTime.now().formatDateTime}&release_date.lte=${DateTime.now().add(const Duration(days: 30)).formatDateTime}';
 }

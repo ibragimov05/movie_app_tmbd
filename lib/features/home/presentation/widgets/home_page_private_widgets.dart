@@ -4,12 +4,21 @@ class _SliverAppBar extends StatelessWidget {
   const _SliverAppBar();
 
   @override
-  Widget build(BuildContext context) => const SliverAppBar(
+  Widget build(BuildContext context) => SliverAppBar(
         pinned: true,
-        title: Text(
+        title: const Text(
           'What do you want to watch?',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => context.read<MovieBloc>().add(
+                  const GetAllMoviesEvent(),
+                ),
+            tooltip: 'Refresh page',
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       );
 }
 

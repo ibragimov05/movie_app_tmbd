@@ -3,8 +3,6 @@ part of '../main_page.dart';
 mixin MainMixin on State<MainPage> {
   DateTime? _lastPressedAt;
 
-
-
   void _onPopInvoked(bool didPop, Object? result) {
     final now = DateTime.now();
 

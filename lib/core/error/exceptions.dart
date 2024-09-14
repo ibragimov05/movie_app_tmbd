@@ -1,6 +1,5 @@
 part of 'error.dart';
 
-
 class ServerException implements Exception {
   const ServerException({required this.message});
 

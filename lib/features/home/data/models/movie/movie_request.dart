@@ -3,7 +3,7 @@ class MovieRequest {
   final String category;
 
   const MovieRequest({
-    required this.page,
+    this.page = 1,
     required this.category,
   });
 }

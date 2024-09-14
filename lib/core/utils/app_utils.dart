@@ -1,6 +1,6 @@
 part of "utils.dart";
 
-sealed class  AppUtils {
+sealed class AppUtils {
   AppUtils._();
 
   /// box

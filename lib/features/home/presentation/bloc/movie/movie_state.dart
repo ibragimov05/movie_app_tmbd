@@ -46,15 +46,28 @@ class MovieState extends Equatable {
 }
 
 /// enumeration for movie status
-enum MovieStatus { initial, loading, loaded, error }
+enum MovieStatus { initial, loading, loaded, allLoading, error }
 
 /// extension to check status
 extension MovieStatusX on MovieStatus {
   bool get isInitial => this == MovieStatus.initial;
 
   bool get isLoading => this == MovieStatus.loading;
+  bool get isAllLoading => this == MovieStatus.allLoading;
 
   bool get isLoaded => this == MovieStatus.loaded;
 
   bool get isError => this == MovieStatus.error;
+}
+
+extension MovieStateX on MovieState {
+  List<Movie> getMovieByCategory({required String categoryName}) {
+    return switch (categoryName) {
+      Constants.upcoming => upcoming,
+      Constants.topRated => topRated,
+      Constants.popular => popular,
+      Constants.nowPlaying => nowPlaying,
+      _ => [],
+    };
+  }
 }

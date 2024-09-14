@@ -19,21 +19,26 @@ class TopMovieWidget extends StatelessWidget {
       height: 210,
       decoration: BoxDecoration(
         color: AppColors.mainColor,
-        borderRadius: BorderRadius.circular(16)
-
+        borderRadius: BorderRadius.circular(16),
       ),
-      margin: EdgeInsets.only(left: index == 0 ? 16 : 0),
+      margin: EdgeInsets.only(
+        left: index == 0 ? 16 : 0,
+        right: index == 9 ? 16 : 0,
+      ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          SizedBox(
-            width: 180,
-            child: Image.network(
-              Constants.imageBaseUrl + movie.posterPath,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return AppAssets.images.popcorn.image();
-              },
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: SizedBox(
+              width: 130,
+              child: Image.network(
+                Constants.imageBaseUrl + movie.posterPath,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return AppAssets.images.popcorn.image();
+                },
+              ),
             ),
           ),
           Positioned(
