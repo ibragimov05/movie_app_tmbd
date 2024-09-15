@@ -25,16 +25,6 @@ class _SliverAppBar extends StatelessWidget {
           icon: const Icon(Icons.bookmark),
         ),
       ],
-      // flexibleSpace: FlexibleSpaceBar(
-      //   title: Text('Detail'),
-      //   centerTitle: true,
-      //   expandedTitleScale: 1,
-      //   collapseMode: CollapseMode.pin,
-      //   background: Image.network(
-      //     Constants.imageBaseUrl + movie.backdropPath,
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
     );
   }
 }
@@ -145,7 +135,7 @@ class _SliverMovieBackDropDetail extends StatelessWidget {
                 color: const Color(0xFF696974),
               ),
               MovieInfoItem(
-                label: movie.genreIds.toString(),
+                label: movie.genreIds.genres,
                 icon: Icons.movie,
               ),
             ],
@@ -164,17 +154,125 @@ class _SliverTabBar extends StatelessWidget {
     return SliverPersistentHeader(
       delegate: _SliverAppBarDelegate(
         const TabBar(
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+          indicatorColor: Color(0xFF3A3F47),
           tabs: [
             Tab(text: 'About Movie'),
             Tab(text: 'Reviews'),
             Tab(text: 'Cast'),
           ],
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.black,
         ),
       ),
       pinned: true,
+    );
+  }
+}
+
+class _AboutMovie extends StatelessWidget {
+  final String overview;
+
+  const _AboutMovie({required this.overview});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: AppUtils.kPaddingHor16Ver8,
+      child: Text(overview),
+    );
+  }
+}
+
+class _MovieReviews extends StatelessWidget {
+  const _MovieReviews();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MovieDetailBloc, MovieDetailState>(
+      buildWhen: (previous, current) =>
+          previous.reviews != current.reviews ||
+          current.isLoaded ||
+          current.isLoading ||
+          current.isError,
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              strokeWidth: 2,
+            ),
+          );
+        } else if (state.isError) {
+          return Center(
+            child: Text('Something went wrong: ${state.error}'),
+          );
+        } else if (state.isLoaded) {
+          return state.reviews.isNotEmpty
+              ? ListView.separated(
+                  itemCount: state.reviews.length,
+                  padding: AppUtils.kPaddingHor16Ver8,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 20,
+                    child: Divider(),
+                  ),
+                  itemBuilder: (context, index) => ReviewItem(
+                    review: state.reviews[index],
+                  ),
+                )
+              : const Center(
+                  child: Text('No reviews available for this movie'),
+                );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+}
+
+class _MovieCasts extends StatelessWidget {
+  const _MovieCasts();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MovieDetailBloc, MovieDetailState>(
+      buildWhen: (previous, current) =>
+          previous.casts != current.casts ||
+          current.isLoaded ||
+          current.isLoading ||
+          current.isError,
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              strokeWidth: 2,
+            ),
+          );
+        } else if (state.isError) {
+          return Center(
+            child: Text('Something went wrong: ${state.error}'),
+          );
+        } else if (state.isLoaded) {
+          return state.casts.isNotEmpty
+              ? GridView.builder(
+                  itemCount: state.casts.length,
+                  padding: AppUtils.kPaddingHor16Ver8,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 30,
+                    childAspectRatio: 1.2,
+                  ),
+                  itemBuilder: (context, index) => CastItem(
+                    cast: state.casts[index],
+                  ),
+                )
+              : const Center(
+                  child: Text('No casts available for this movie'),
+                );
+        }
+        return const SizedBox();
+      },
     );
   }
 }

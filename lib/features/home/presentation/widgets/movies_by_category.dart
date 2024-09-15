@@ -115,7 +115,7 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
                 enableSwitchAnimation: true,
                 child: Image.network(
                   Constants.imageBaseUrl + movie.posterPath,
-                  height: 200,
+                  height: DeviceScreen.h(context) / 2,
                   fit: BoxFit.cover,
                 ),
               );

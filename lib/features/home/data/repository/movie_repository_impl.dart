@@ -2,6 +2,7 @@ part of '../../domain/repository/movie_repository.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final Dio _dio;
+  static final String _apiKey = dotenv.get('API_KEY');
 
   const MovieRepositoryImpl({required Dio dio}) : _dio = dio;
 
@@ -41,7 +42,7 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, GenreResponse>> getMovieGenres() async {
     try {
       final Response<dynamic> response = await _dio.get(
-        'genre/movie/list?api_key=13820cf56ac62a1281f90475874efeaa&language=en-US',
+        'genre/movie/list?api_key$_apiKey=&language=en-US',
       );
 
       return Right<Failure, GenreResponse>(

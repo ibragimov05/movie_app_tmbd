@@ -54,6 +54,7 @@ extension MovieStatusX on MovieStatus {
   bool get isInitial => this == MovieStatus.initial;
 
   bool get isLoading => this == MovieStatus.loading;
+
   bool get isAllLoading => this == MovieStatus.allLoading;
 
   bool get isLoaded => this == MovieStatus.loaded;
@@ -61,6 +62,7 @@ extension MovieStatusX on MovieStatus {
   bool get isError => this == MovieStatus.error;
 }
 
+/// extension to get movies by category name
 extension MovieStateX on MovieState {
   MoviesWithTotalPage getMovieByCategory({required String categoryName}) {
     return switch (categoryName) {

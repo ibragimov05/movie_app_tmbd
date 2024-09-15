@@ -18,8 +18,10 @@ mixin MainMixin on State<MainPage> {
 
         context.read<TabBoxCubit>().increasePopCount();
 
-        // TODO: add snack bar
-        // AppFunctions.showSnackBar(context, context.tr('pressTwice'));
+        AppUtils.showSnackBar(
+          message: 'Press twice to exit an app',
+          context: context,
+        );
       }
     }
   }

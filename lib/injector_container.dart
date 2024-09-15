@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app_tmbd/features/home/domain/repository/movie_repository.dart';
 import 'package:movie_app_tmbd/features/home/presentation/bloc/movie/movie_bloc.dart';
 import 'package:movie_app_tmbd/features/main/presentation/cubit/tab_box_cubit.dart';
+import 'package:movie_app_tmbd/features/movie_detail/domain/repository/movie_detail_repository.dart';
+import 'package:movie_app_tmbd/features/movie_detail/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 
 import 'core/constants/constants.dart';
 
@@ -20,7 +22,6 @@ void init() {
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         baseUrl: Constants.baseUrl,
-        // TODO
         headers: {
           'Authorization':
               'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMzgyMGNmNTZhYzYyYTEyODFmOTA0NzU4NzRlZmVhYSIsIm5iZiI6MTcyNjIwMzQ2Ny4xMzM2OTcsInN1YiI6IjY2ZTNjNDZkZjQ2N2MyYWQ2MmY5NGZjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ecdHnDRmHE4g63CKPcfMe6UBTDW5Vw3UGZz1GIEz09Y',
@@ -43,6 +44,11 @@ void init() {
   getIt.registerLazySingleton(
     () => MovieBloc(
       movieRepository: MovieRepositoryImpl(dio: getIt.get<Dio>()),
+    ),
+  );
+  getIt.registerLazySingleton(
+    () => MovieDetailBloc(
+      movieDetailRepository: MovieDetailRepositoryImpl(dio: getIt.get<Dio>()),
     ),
   );
 
