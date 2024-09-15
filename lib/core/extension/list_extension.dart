@@ -24,3 +24,9 @@ extension ListIntX on List<int> {
     return genreNames.join(', ');
   }
 }
+
+extension ListMovieX on List<Movie> {
+  bool isLiked({required Movie movie}) {
+    return indexWhere((element) => element.id == movie.id) != -1;
+  }
+}

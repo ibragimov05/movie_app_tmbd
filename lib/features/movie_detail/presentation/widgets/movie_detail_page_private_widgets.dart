@@ -9,8 +9,6 @@ class _SliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
-      // floating: false,
-      // expandedHeight: 200,
       title: const Text(
         'Detail',
         style: TextStyle(
@@ -20,9 +18,17 @@ class _SliverAppBar extends StatelessWidget {
       ),
       centerTitle: true,
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.bookmark),
+        BlocBuilder<WatchListBloc, WatchListState>(
+          builder: (context, state) => IconButton(
+            onPressed: () => getIt
+                .get<WatchListBloc>()
+                .add(ToggleWatchListEvent(movie: movie)),
+            icon: Icon(
+              state.savedMovies.isLiked(movie: movie)
+                  ? Icons.bookmark
+                  : Icons.bookmark_add_outlined,
+            ),
+          ),
         ),
       ],
     );

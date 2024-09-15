@@ -13,7 +13,8 @@ class CreditsResponse {
     required this.crew,
   });
 
-  factory CreditsResponse.fromJson(Map<String, dynamic> json) => CreditsResponse(
+  factory CreditsResponse.fromJson(Map<String, dynamic> json) =>
+      CreditsResponse(
         id: json['id'] as num? ?? -1,
         cast: (json['cast'] as List<dynamic>?)
                 ?.map((e) => Cast.fromJson(e as Map<String, dynamic>))

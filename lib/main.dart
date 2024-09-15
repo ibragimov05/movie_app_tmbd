@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'app.dart';
 import 'core/utils/utils.dart';
+import 'features/watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
 import 'injector_container.dart';
 import 'injector_container.dart' as di;
 import 'features/main/presentation/cubit/tab_box_cubit.dart';
@@ -19,18 +20,15 @@ void main() async {
 
   di.init();
 
-  await Future.wait([
-    /// To store app secrets
-    dotenv.load(fileName: '.env'),
+  /// To store app secrets
+  dotenv.load(fileName: '.env');
 
-    /// To store bloc's last state to local storage
-    HydratedStorage.build(
-      storageDirectory: kIsWeb
-          ? HydratedStorage.webStorageDirectory
-          : await getTemporaryDirectory(),
-    ),
-  ]);
-
+  /// To store bloc's last state to local storage
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getTemporaryDirectory(),
+  );
   runApp(
     MultiBlocProvider(
       providers: [
@@ -38,6 +36,7 @@ void main() async {
           value: getIt.get<MovieBloc>()..add(const GetAllMoviesEvent()),
         ),
         BlocProvider.value(value: getIt.get<TabBoxCubit>()),
+        BlocProvider.value(value: getIt.get<WatchListBloc>()),
       ],
       child: const App(),
     ),

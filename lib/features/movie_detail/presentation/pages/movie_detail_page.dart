@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/widgets/widgets.dart';
 import '../bloc/blocs.dart';
 import '../widgets/widgets.dart';
 import '../../../../core/core.dart';
 import '../../../../injector_container.dart';
 import '../../../home/data/models/movie/movie.dart';
+import '../../../watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
 
 part '../widgets/movie_detail_page_private_widgets.dart';
 
@@ -25,12 +25,6 @@ class _MovieDetailPageState extends State<MovieDetailPage>
     with MovieDetailMixin {
   @override
   Widget build(BuildContext context) {
-    getIt.get<MovieDetailBloc>().add(
-      GetMovieReviewsEvent(movieId: widget.movie.id),
-    );
-    getIt.get<MovieDetailBloc>().add(
-      GetMovieCastsEvent(movieId: widget.movie.id),
-    );
     return BlocProvider.value(
       value: getIt.get<MovieDetailBloc>(),
       child: DefaultTabController(

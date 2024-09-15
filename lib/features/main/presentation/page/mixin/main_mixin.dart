@@ -3,6 +3,22 @@ part of '../main_page.dart';
 mixin MainMixin on State<MainPage> {
   DateTime? _lastPressedAt;
 
+  @override
+  void initState() {
+    super.initState();
+
+    getIt.get<Connectivity>().onConnectivityChanged.listen(
+      (List<ConnectivityResult> result) {
+        if (!(result.contains(ConnectivityResult.wifi) ||
+            result.contains(ConnectivityResult.mobile))) {
+          if (!mounted) return;
+
+          context.pushNamed(Routes.noConnection);
+        }
+      },
+    );
+  }
+
   void _onPopInvoked(bool didPop, Object? result) {
     final now = DateTime.now();
 

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../data/models/movie/movie.dart';
 import '../bloc/movie/movie_bloc.dart';
 

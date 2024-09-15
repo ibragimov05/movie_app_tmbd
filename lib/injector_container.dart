@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,7 @@ import 'package:movie_app_tmbd/features/movie_detail/domain/repository/movie_det
 import 'package:movie_app_tmbd/features/movie_detail/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 
 import 'core/constants/constants.dart';
+import 'features/watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -40,6 +42,8 @@ void init() {
       )),
   );
 
+  getIt.registerLazySingleton(() => Connectivity());
+
   /// registering blocs
   getIt.registerLazySingleton(
     () => MovieBloc(
@@ -51,6 +55,7 @@ void init() {
       movieDetailRepository: MovieDetailRepositoryImpl(dio: getIt.get<Dio>()),
     ),
   );
+  getIt.registerLazySingleton(() => WatchListBloc());
 
   /// registering cubits
   getIt.registerLazySingleton(() => TabBoxCubit());
