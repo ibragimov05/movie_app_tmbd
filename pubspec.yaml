@@ -13,6 +13,9 @@ dependencies:
   # state manager
   flutter_bloc: ^8.1.6
 
+  # package that stores bloc's last state
+  hydrated_bloc: ^9.1.5
+
   # router
   go_router: ^14.2.7
 
@@ -45,7 +48,10 @@ dependencies:
 
   # sized box
   gap: ^3.0.1
+
+  # google fonts
   google_fonts: ^6.2.1
+  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:
@@ -54,9 +60,12 @@ dev_dependencies:
 
   # assets generator
   flutter_gen_runner: ^5.7.0
+
   # build runner
   build_runner: ^2.4.12
-#  json_serializable: ^6.8.0
+
+  # json serializable
+  json_serializable: ^6.8.0
 
 flutter_gen:
   output: lib/core/utils/gen/

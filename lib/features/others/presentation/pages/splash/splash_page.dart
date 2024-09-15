@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_app_tmbd/core/core.dart';
 
+import '../../../../../core/core.dart';
 import '../../../../../router/app_router.dart';
 
 part 'mixin/splash_mixin.dart';

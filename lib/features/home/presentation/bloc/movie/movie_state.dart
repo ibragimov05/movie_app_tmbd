@@ -1,5 +1,6 @@
 part of 'movie_bloc.dart';
 
+@JsonSerializable()
 class MovieState extends Equatable {
   final MoviesWithTotalPage nowPlaying;
   final MoviesWithTotalPage upcoming;

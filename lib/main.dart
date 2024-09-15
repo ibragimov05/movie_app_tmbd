@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
 import 'core/utils/utils.dart';
@@ -15,6 +17,13 @@ void main() async {
   if (kDebugMode) Bloc.observer = LogBlocObserver();
 
   di.init();
+
+  /// To store bloc's last state to local storage
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getTemporaryDirectory(),
+  );
 
   runApp(
     MultiBlocProvider(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/core.dart';
-import '../../data/models/movie/movie.dart';
 import '../bloc/movie/movie_bloc.dart';
+import '../../../../router/app_router.dart';
+import '../../data/models/movie/movie.dart';
+import '../../../../core/widgets/widgets.dart';
 
 class MoviesByCategory extends StatefulWidget {
   final String categoryName;
@@ -55,8 +58,7 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
           final moviesWithTotalPage = state.getMovieByCategory(
             categoryName: widget.categoryName,
           );
-          // final movies = moviesWithTotalPage.movies;
-// print(movies.length);
+
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -64,32 +66,35 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),
-            itemCount: moviesWithTotalPage.movies.isNotEmpty ? moviesWithTotalPage.movies.length + 1 : 0,
+            itemCount: moviesWithTotalPage.movies.isNotEmpty
+                ? moviesWithTotalPage.movies.length + 1
+                : 0,
             padding: AppUtils.kPaddingHor16Ver8,
-            itemBuilder: (context, index) => index == moviesWithTotalPage.movies.length
-                ? Center(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        overlayColor: WidgetStatePropertyAll(
-                          AppColors.blue.withOpacity(0.5),
+            itemBuilder: (context, index) =>
+                index == moviesWithTotalPage.movies.length
+                    ? Center(
+                        child: TextButton(
+                          style: ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(
+                              AppColors.blue.withOpacity(0.5),
+                            ),
+                          ),
+                          onPressed: () {
+                            _currentPage++;
+                            context.read<MovieBloc>().add(
+                                  GetMovieByCategoryEvent(
+                                    category: widget.categoryName,
+                                    page: _currentPage,
+                                  ),
+                                );
+                          },
+                          child: const Text(
+                            'Load more',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        _currentPage++;
-                        context.read<MovieBloc>().add(
-                              GetMovieByCategoryEvent(
-                                category: widget.categoryName,
-                                page: _currentPage,
-                              ),
-                            );
-                      },
-                      child: const Text(
-                        'Load more',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                : _buildMovieItem(moviesWithTotalPage.movies[index]),
+                      )
+                    : _buildMovieItem(moviesWithTotalPage.movies[index]),
           );
         }
       },
@@ -97,24 +102,34 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
   }
 
   Widget _buildMovieItem(Movie movie) {
-    return ClipRRect(
-      clipBehavior: Clip.hardEdge,
-      borderRadius: AppUtils.kBorderRadius12,
-      child: Container(
-        color: const Color(0xFF3A3F47),
-        child: FutureBuilder<bool>(
-          future: _precacheImage(
-              Constants.imageBaseUrl + movie.posterPath, context),
-          builder: (context, snapshot) {
-            final bool imageLoaded = snapshot.data ?? false;
-            return Skeletonizer(
-              enabled: !imageLoaded,
-              enableSwitchAnimation: true,
-              child: Image.network(
-                Constants.imageBaseUrl + movie.posterPath,
-              ),
-            );
-          },
+    return ZoomTapAnimation(
+      onTap: () => context.pushNamed(
+        Routes.movieDetail,
+        pathParameters: {'movieId': movie.id.toString()},
+        extra: movie,
+      ),
+      child: ClipRRect(
+        clipBehavior: Clip.hardEdge,
+        borderRadius: AppUtils.kBorderRadius12,
+        child: Container(
+          color: const Color(0xFF3A3F47),
+          child: FutureBuilder<bool>(
+            future: _precacheImage(
+                Constants.imageBaseUrl + movie.posterPath, context),
+            builder: (context, snapshot) {
+              final bool imageLoaded = snapshot.data ?? false;
+
+              return Skeletonizer(
+                enabled: !imageLoaded,
+                enableSwitchAnimation: true,
+                child: Image.network(
+                  Constants.imageBaseUrl + movie.posterPath,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
