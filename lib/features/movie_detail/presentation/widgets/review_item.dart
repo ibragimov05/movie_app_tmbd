@@ -6,6 +6,8 @@ class ReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String imageUrl =
+        Constants.imageBaseUrl + review.authorDetails.avatarPath;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -16,28 +18,10 @@ class ReviewItem extends StatelessWidget {
               width: 50,
               clipBehavior: Clip.hardEdge,
               decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: FutureBuilder(
-                future: _precacheImage(
-                  imageUrl:
-                      Constants.imageBaseUrl + review.authorDetails.avatarPath,
-                  context: context,
-                ),
-                builder: (context, snapshot) {
-                  final bool imageLoaded = snapshot.data ?? false;
-
-                  return Skeletonizer(
-                    enabled: !imageLoaded,
-                    enableSwitchAnimation: true,
-                    child: Image.network(
-                      Constants.imageBaseUrl + review.authorDetails.avatarPath,
-                      fit: BoxFit.cover,
-                      height: 50,
-                      width: 50,
-                      errorBuilder: (context, error, stackTrace) =>
-                          AppAssets.images.popcorn.image(),
-                    ),
-                  );
-                },
+              child: CacheImageNetwork(
+                imageUrl: imageUrl,
+                height: 50,
+                width: 50,
               ),
             ),
             AppUtils.kGap12,
@@ -57,17 +41,5 @@ class ReviewItem extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Future<bool> _precacheImage({
-    required String imageUrl,
-    required BuildContext context,
-  }) async {
-    try {
-      await precacheImage(NetworkImage(imageUrl), context);
-      return true;
-    } catch (_) {
-      return false;
-    }
   }
 }

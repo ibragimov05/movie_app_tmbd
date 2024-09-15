@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/widgets.dart';
 import '../bloc/blocs.dart';
 import '../widgets/widgets.dart';
 import '../../../../core/core.dart';

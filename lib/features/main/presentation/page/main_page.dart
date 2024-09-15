@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app_tmbd/features/search/presentation/page/search_page.dart';
+import 'package:movie_app_tmbd/features/watchlist/presentation/page/watchlist_page.dart';
 
 import '../../../../core/core.dart';
 import '../cubit/tab_box_cubit.dart';
@@ -16,7 +18,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> with MainMixin {
-  static const List<Widget> _pages = [HomePage(), Placeholder(), Placeholder()];
+  static const List<Widget> _pages = [
+    HomePage(),
+    SearchPage(),
+    WatchlistPage(),
+  ];
 
   static final List<String> _tabBoxIconsPath = [
     AppAssets.icons.home.path,

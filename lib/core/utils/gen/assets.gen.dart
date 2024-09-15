@@ -35,18 +35,26 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/no_results.png
+  AssetGenImage get noResults =>
+      const AssetGenImage('assets/images/no_results.png');
+
   /// File path: assets/images/popcorn.png
   AssetGenImage get popcorn => const AssetGenImage('assets/images/popcorn.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [popcorn];
+  List<AssetGenImage> get values => [noResults, popcorn];
 }
 
 class Assets {
   Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

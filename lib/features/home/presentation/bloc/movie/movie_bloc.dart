@@ -41,6 +41,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
       // Update state with fetched movies for each category
       final MovieState newState = state.copyWith(
+        allMovies: [
+          ...results[0].movies,
+          ...results[1].movies,
+          ...results[2].movies,
+          ...results[3].movies
+        ],
         upcoming: results[0],
         popular: results[1],
         topRated: results[2],
@@ -150,13 +156,15 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     }
 
     // Return updated state with new movies for the `specified` category
+    final res = updateFunction(result);
+
     return state.copyWith(
+      allMovies: [...state.allMovies, ...res.movies],
       status: MovieStatus.loaded,
-      popular: category == Constants.popular ? updateFunction(result) : null,
-      topRated: category == Constants.topRated ? updateFunction(result) : null,
-      upcoming: category == Constants.upcoming ? updateFunction(result) : null,
-      nowPlaying:
-          category == Constants.nowPlaying ? updateFunction(result) : null,
+      popular: category == Constants.popular ? res : null,
+      topRated: category == Constants.topRated ? res : null,
+      upcoming: category == Constants.upcoming ? res : null,
+      nowPlaying: category == Constants.nowPlaying ? res : null,
     );
   }
 }

@@ -104,34 +104,12 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
         borderRadius: AppUtils.kBorderRadius12,
         child: Container(
           color: const Color(0xFF3A3F47),
-          child: FutureBuilder<bool>(
-            future: _precacheImage(
-                Constants.imageBaseUrl + movie.posterPath, context),
-            builder: (context, snapshot) {
-              final bool imageLoaded = snapshot.data ?? false;
-
-              return Skeletonizer(
-                enabled: !imageLoaded,
-                enableSwitchAnimation: true,
-                child: Image.network(
-                  Constants.imageBaseUrl + movie.posterPath,
-                  height: DeviceScreen.h(context) / 2,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
+          child: CacheImageNetwork(
+            imageUrl: Constants.imageBaseUrl + movie.posterPath,
+            height: DeviceScreen.h(context) / 2,
           ),
         ),
       ),
     );
-  }
-
-  Future<bool> _precacheImage(String imageUrl, BuildContext context) async {
-    try {
-      await precacheImage(NetworkImage(imageUrl), context);
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 }

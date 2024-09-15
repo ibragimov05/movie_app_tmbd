@@ -2,6 +2,7 @@ part of 'movie_bloc.dart';
 
 @JsonSerializable()
 class MovieState extends Equatable {
+  final List<Movie> allMovies;
   final MoviesWithTotalPage nowPlaying;
   final MoviesWithTotalPage upcoming;
   final MoviesWithTotalPage topRated;
@@ -10,6 +11,7 @@ class MovieState extends Equatable {
   final String? error;
 
   const MovieState({
+    this.allMovies = const [],
     this.nowPlaying = const MoviesWithTotalPage(),
     this.upcoming = const MoviesWithTotalPage(),
     this.topRated = const MoviesWithTotalPage(),
@@ -19,6 +21,7 @@ class MovieState extends Equatable {
   });
 
   MovieState copyWith({
+    List<Movie>? allMovies,
     MoviesWithTotalPage? nowPlaying,
     MoviesWithTotalPage? upcoming,
     MoviesWithTotalPage? topRated,
@@ -27,6 +30,7 @@ class MovieState extends Equatable {
     String? error,
   }) =>
       MovieState(
+        allMovies: allMovies ?? this.allMovies,
         nowPlaying: nowPlaying ?? this.nowPlaying,
         upcoming: upcoming ?? this.upcoming,
         topRated: topRated ?? this.topRated,
