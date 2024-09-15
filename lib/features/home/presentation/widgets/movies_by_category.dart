@@ -26,7 +26,8 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
           previous.popular != current.popular ||
           previous.nowPlaying != current.nowPlaying ||
           previous.upcoming != current.upcoming ||
-          current.status != previous.status,
+          current.status == MovieStatus.allLoading ||
+          current.status == MovieStatus.loaded,
       builder: (context, state) {
         if (state.status.isInitial) {
           return const Center(child: Text('Initial'));
@@ -35,69 +36,63 @@ class _MoviesByCategoryState extends State<MoviesByCategory> {
             child: Text(state.error ?? 'Something went wrong'),
           );
         } else if (state.status.isLoading) {
-          return _buildShimmerLoading();
+          return Skeletonizer(
+            enabled: true,
+            child: GridView.builder(
+              padding: AppUtils.kPaddingHor16Ver8,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.65,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) => AppAssets.images.popcorn.image(
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
         } else {
-          final movies = state.getMovieByCategory(
+          final moviesWithTotalPage = state.getMovieByCategory(
             categoryName: widget.categoryName,
           );
-          return _buildMovieGrid(movies);
+          // final movies = moviesWithTotalPage.movies;
+// print(movies.length);
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 0.65,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: moviesWithTotalPage.movies.isNotEmpty ? moviesWithTotalPage.movies.length + 1 : 0,
+            padding: AppUtils.kPaddingHor16Ver8,
+            itemBuilder: (context, index) => index == moviesWithTotalPage.movies.length
+                ? Center(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        overlayColor: WidgetStatePropertyAll(
+                          AppColors.blue.withOpacity(0.5),
+                        ),
+                      ),
+                      onPressed: () {
+                        _currentPage++;
+                        context.read<MovieBloc>().add(
+                              GetMovieByCategoryEvent(
+                                category: widget.categoryName,
+                                page: _currentPage,
+                              ),
+                            );
+                      },
+                      child: const Text(
+                        'Load more',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+                : _buildMovieItem(moviesWithTotalPage.movies[index]),
+          );
         }
       },
-    );
-  }
-
-  Widget _buildShimmerLoading() {
-    return Skeletonizer(
-      enabled: true,
-      child: GridView.builder(
-        padding: AppUtils.kPaddingHor16Ver8,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 0.65,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index) => AppAssets.images.popcorn.image(
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMovieGrid(List<Movie> movies) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.65,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: movies.isNotEmpty ? movies.length + 1 : 0,
-      padding: AppUtils.kPaddingHor16Ver8,
-      itemBuilder: (context, index) {
-        if (index == movies.length) {
-          return _buildLoadMoreButton();
-        }
-        return _buildMovieItem(movies[index]);
-      },
-    );
-  }
-
-  Widget _buildLoadMoreButton() {
-    return Center(
-      child: TextButton(
-        style: ButtonStyle(
-          overlayColor: WidgetStatePropertyAll(AppColors.blue.withOpacity(0.5)),
-        ),
-        onPressed: () {
-          _currentPage++;
-          context.read<MovieBloc>().add(GetMovieByCategoryEvent(
-                category: widget.categoryName,
-                page: _currentPage,
-              ));
-        },
-        child: const Text('Load more', style: TextStyle(color: Colors.white)),
-      ),
     );
   }
 

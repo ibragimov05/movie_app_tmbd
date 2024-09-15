@@ -11,6 +11,12 @@ abstract class Constants {
   static const String popular = 'popular';
   static const String topRated = 'top_rated';
   static const String upcoming = 'discover';
+  static const List<String> categories = [
+    upcoming,
+    popular,
+    topRated,
+    nowPlaying,
+  ];
   static const List<String> movieCategories = [
     'Now playing',
     'Upcoming',

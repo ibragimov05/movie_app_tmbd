@@ -1,27 +1,27 @@
 part of 'movie_bloc.dart';
 
 class MovieState extends Equatable {
-  final List<Movie> nowPlaying;
-  final List<Movie> upcoming;
-  final List<Movie> topRated;
-  final List<Movie> popular;
+  final MoviesWithTotalPage nowPlaying;
+  final MoviesWithTotalPage upcoming;
+  final MoviesWithTotalPage topRated;
+  final MoviesWithTotalPage popular;
   final MovieStatus status;
   final String? error;
 
   const MovieState({
-    this.nowPlaying = const [],
-    this.upcoming = const [],
-    this.topRated = const [],
-    this.popular = const [],
+    this.nowPlaying = const MoviesWithTotalPage(),
+    this.upcoming = const MoviesWithTotalPage(),
+    this.topRated = const MoviesWithTotalPage(),
+    this.popular = const MoviesWithTotalPage(),
     this.status = MovieStatus.initial,
     this.error,
   });
 
   MovieState copyWith({
-    List<Movie>? nowPlaying,
-    List<Movie>? upcoming,
-    List<Movie>? topRated,
-    List<Movie>? popular,
+    MoviesWithTotalPage? nowPlaying,
+    MoviesWithTotalPage? upcoming,
+    MoviesWithTotalPage? topRated,
+    MoviesWithTotalPage? popular,
     MovieStatus? status,
     String? error,
   }) =>
@@ -61,13 +61,13 @@ extension MovieStatusX on MovieStatus {
 }
 
 extension MovieStateX on MovieState {
-  List<Movie> getMovieByCategory({required String categoryName}) {
+  MoviesWithTotalPage getMovieByCategory({required String categoryName}) {
     return switch (categoryName) {
       Constants.upcoming => upcoming,
       Constants.topRated => topRated,
       Constants.popular => popular,
       Constants.nowPlaying => nowPlaying,
-      _ => [],
+      _ => const MoviesWithTotalPage(),
     };
   }
 }

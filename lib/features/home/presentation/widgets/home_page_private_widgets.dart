@@ -98,14 +98,14 @@ class _SliverTopMoviesListView extends StatelessWidget {
               buildWhen: (previous, current) =>
                   previous.topRated != current.topRated,
               builder: (context, state) {
-                return state.topRated.isEmpty
+                return state.topRated.movies.isEmpty
                     ? const Center(child: Text('No top rated movies available'))
                     : ListView.separated(
                         itemCount: 10,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (context, index) => AppUtils.kGap24,
                         itemBuilder: (context, index) => TopMovieWidget(
-                          movie: state.topRated[index],
+                          movie: state.topRated.movies[index],
                           index: index,
                         ),
                       );
