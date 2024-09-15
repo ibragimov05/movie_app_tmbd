@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:movie_app_tmbd/router/app_router.dart';
-
-import '../../../../core/core.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../data/models/movie/movie.dart';
+part of 'widgets.dart';
 
 class TopMovieWidget extends StatelessWidget {
   final Movie movie;

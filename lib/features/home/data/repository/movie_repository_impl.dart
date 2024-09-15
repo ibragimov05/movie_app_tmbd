@@ -37,6 +37,31 @@ class MovieRepositoryImpl implements MovieRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, GenreResponse>> getMovieGenres() async {
+    try {
+      final Response<dynamic> response = await _dio.get(
+        'genre/movie/list?api_key=13820cf56ac62a1281f90475874efeaa&language=en-US',
+      );
+
+      return Right<Failure, GenreResponse>(
+        GenreResponse.fromJson(response.data),
+      );
+    } on DioException catch (error, stacktrace) {
+      log("Exception occurred: $error stacktrace: $stacktrace");
+
+      return Left<Failure, GenreResponse>(
+        ServerError.withDioError(error: error).failure,
+      );
+    } on Exception catch (error, stacktrace) {
+      log("Exception occurred: $error stacktrace: $stacktrace");
+
+      return Left<Failure, GenreResponse>(
+        ServerError.withError(message: error.toString()).failure,
+      );
+    }
+  }
+
   String _upcomingUrl({required int page}) =>
       '${Constants.upcomingRemainingUrl}page=$page&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${DateTime.now().formatDateTime}&release_date.lte=${DateTime.now().add(const Duration(days: 30)).formatDateTime}';
 }

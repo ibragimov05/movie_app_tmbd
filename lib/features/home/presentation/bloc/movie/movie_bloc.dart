@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../domain/domain.dart';
 import '../../../../../core/core.dart';
-import '../../../data/models/movie/movie.dart';
+import '../../../data/models/models.dart';
 
 part 'movie_event.dart';
 part 'movie_state.dart';
@@ -17,6 +17,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       : _movieRepository = movieRepository,
         super(const MovieState()) {
     on<GetAllMoviesEvent>(_onGetAllMovies);
+    on<GetGenreNamesEvent>(_onGetGenreNames);
     on<GetMovieByCategoryEvent>(_onGetMovieByCategory);
   }
 
@@ -25,6 +26,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     GetAllMoviesEvent event,
     Emitter<MovieState> emit,
   ) async {
+    // adding event to get movie genre names
+    add(const GetGenreNamesEvent());
+
     emit(state.copyWith(status: MovieStatus.allLoading));
 
     try {
@@ -51,6 +55,20 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         error: error.toString(),
       ));
     }
+  }
+
+  /// Get all genre names
+  Future<void> _onGetGenreNames(
+    GetGenreNamesEvent event,
+    Emitter<MovieState> emit,
+  ) async {
+    final Either<Failure, GenreResponse> result =
+        await _movieRepository.getMovieGenres();
+
+    result.fold(
+      (left) => debugPrint(left.message),
+      (right) => Constants.allGenres = right.genres,
+    );
   }
 
   /// Handles the event to fetch movies for a specific category

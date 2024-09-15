@@ -1,3 +1,5 @@
+import 'package:movie_app_tmbd/features/home/data/models/genre/genre_response.dart';
+
 abstract class Constants {
   const Constants._();
 
@@ -30,4 +32,6 @@ abstract class Constants {
     'Search',
     'Watch list',
   ];
+
+  static List<Genre> allGenres = [];
 }

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app_tmbd/features/home/data/models/movie/movie.dart';
 import 'package:movie_app_tmbd/features/home/presentation/page/home_page.dart';
 import 'package:movie_app_tmbd/features/main/presentation/page/main_page.dart';
-import 'package:movie_app_tmbd/features/movie_detail/presentation/pages/movie_detail/movie_detail_page.dart';
+import 'package:movie_app_tmbd/features/movie_detail/presentation/pages/movie_detail_page.dart';
 import 'package:movie_app_tmbd/features/others/presentation/pages/splash/splash_page.dart';
 
 part 'route_names.dart';

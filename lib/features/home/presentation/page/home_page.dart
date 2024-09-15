@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
+import '../widgets/widgets.dart';
 import '../../../../core/core.dart';
 import '../bloc/movie/movie_bloc.dart';
-import '../widgets/movies_by_category.dart';
-import '../widgets/top_movie_widget.dart';
 import '../../../main/presentation/cubit/tab_box_cubit.dart';
 
 part '../widgets/home_page_private_widgets.dart';

@@ -12,6 +12,13 @@ final class GetAllMoviesEvent extends MovieEvent {
   List<Object> get props => [];
 }
 
+final class GetGenreNamesEvent extends MovieEvent {
+  const GetGenreNamesEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
 final class GetMovieByCategoryEvent extends MovieEvent {
   final String category;
   final int page;

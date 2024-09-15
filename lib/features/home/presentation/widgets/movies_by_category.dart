@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
-import '../../../../core/core.dart';
-import '../bloc/movie/movie_bloc.dart';
-import '../../../../router/app_router.dart';
-import '../../data/models/movie/movie.dart';
-import '../../../../core/widgets/widgets.dart';
+part of 'widgets.dart';
 
 class MoviesByCategory extends StatefulWidget {
   final String categoryName;
