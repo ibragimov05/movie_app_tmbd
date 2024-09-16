@@ -61,6 +61,12 @@ dependencies:
   # connectivity plus
   connectivity_plus: ^6.0.5
 
+  # stream transform
+  stream_transform: ^2.1.0
+
+  # bloc concurrency
+  bloc_concurrency: ^0.2.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

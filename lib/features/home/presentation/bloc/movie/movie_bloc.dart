@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 import '../../../data/data.dart';
 import '../../../domain/domain.dart';
@@ -9,13 +11,22 @@ import '../../../../../core/core.dart';
 part 'movie_event.dart';
 part 'movie_state.dart';
 
+EventTransformer<E> _throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
+
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final MovieRepository _movieRepository;
 
   MovieBloc({required MovieRepository movieRepository})
       : _movieRepository = movieRepository,
         super(const MovieState()) {
-    on<GetAllMoviesEvent>(_onGetAllMovies);
+    on<GetAllMoviesEvent>(
+      _onGetAllMovies,
+      transformer: _throttleDroppable(const Duration(seconds: 10)),
+    );
     on<GetGenreNamesEvent>(_onGetGenreNames);
     on<GetMovieByCategoryEvent>(_onGetMovieByCategory);
   }
