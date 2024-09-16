@@ -19,6 +19,9 @@ export 'features/movie_detail/movie_detail.dart';
 
 final GetIt getIt = GetIt.instance;
 
+const String _bearerToken =
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMzgyMGNmNTZhYzYyYTEyODFmOTA0NzU4NzRlZmVhYSIsIm5iZiI6MTcyNjIwMzQ2Ny4xMzM2OTcsInN1YiI6IjY2ZTNjNDZkZjQ2N2MyYWQ2MmY5NGZjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ecdHnDRmHE4g63CKPcfMe6UBTDW5Vw3UGZz1GIEz09Y';
+
 void init() {
   getIt.registerLazySingleton(
     () => Dio()
@@ -28,10 +31,7 @@ void init() {
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         baseUrl: Constants.baseUrl,
-        headers: {
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMzgyMGNmNTZhYzYyYTEyODFmOTA0NzU4NzRlZmVhYSIsIm5iZiI6MTcyNjIwMzQ2Ny4xMzM2OTcsInN1YiI6IjY2ZTNjNDZkZjQ2N2MyYWQ2MmY5NGZjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ecdHnDRmHE4g63CKPcfMe6UBTDW5Vw3UGZz1GIEz09Y',
-        },
+        headers: {'Authorization': 'Bearer $_bearerToken'},
       )
       ..interceptors.add(LogInterceptor(
         error: kDebugMode,
