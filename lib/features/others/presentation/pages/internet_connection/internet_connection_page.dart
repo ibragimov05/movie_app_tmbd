@@ -4,7 +4,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../../injector_container.dart';
-import '../../../../home/presentation/bloc/movie/movie_bloc.dart';
 
 part 'mixin/internet_connection_mixin.dart';
 

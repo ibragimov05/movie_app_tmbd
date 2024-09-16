@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_tmbd/core/core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/watch_list/watch_list_bloc.dart';
+import '../bloc/blocs.dart';
 import '../widgets/widgets.dart';
 
 class WatchlistPage extends StatelessWidget {
@@ -25,8 +25,6 @@ class WatchlistPage extends StatelessWidget {
           ),
           Expanded(
             child: BlocBuilder<WatchListBloc, WatchListState>(
-              // buildWhen: (previous, current) =>
-              //     previous.savedMovies != current.savedMovies || previous.status ,
               builder: (context, state) {
                 return state.savedMovies.isNotEmpty
                     ? ListView.separated(

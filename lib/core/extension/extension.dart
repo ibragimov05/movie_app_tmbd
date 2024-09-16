@@ -1,5 +1,5 @@
-import 'package:movie_app_tmbd/core/core.dart';
-import 'package:movie_app_tmbd/features/home/data/models/models.dart';
+import '../../features/home/data/data.dart';
+import '../core.dart';
 
 part 'datetime_extension.dart';
 part 'list_extension.dart';

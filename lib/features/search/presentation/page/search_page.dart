@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app_tmbd/core/core.dart';
 
-import '../../../../injector_container.dart';
-import '../../../home/data/models/models.dart';
-import '../../../home/presentation/bloc/movie/movie_bloc.dart';
 import '../widgets/widgets.dart';
+import '../../../../injector_container.dart';
 
 part '../widgets/search_page_private_widgets.dart';
 

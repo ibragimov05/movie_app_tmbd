@@ -1,11 +1,10 @@
+import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 
-import '../widgets/widgets.dart';
+import '../../home.dart';
+import '../../../main/main.dart';
 import '../../../../core/core.dart';
-import '../bloc/movie/movie_bloc.dart';
-import '../../../main/presentation/cubit/tab_box_cubit.dart';
 
 part '../widgets/home_page_private_widgets.dart';
 

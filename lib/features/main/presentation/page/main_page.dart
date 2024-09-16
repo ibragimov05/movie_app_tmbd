@@ -1,16 +1,13 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../../core/core.dart';
-import '../cubit/tab_box_cubit.dart';
+import '../../../search/search.dart';
 import '../../../../router/app_router.dart';
 import '../../../../injector_container.dart';
-import '../../../home/presentation/page/home_page.dart';
-import '../../../search/presentation/page/search_page.dart';
-import '../../../watchlist/presentation/page/watchlist_page.dart';
 
 part 'mixin/main_mixin.dart';
 

@@ -7,11 +7,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'app.dart';
 import 'core/utils/utils.dart';
-import 'features/watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
 import 'injector_container.dart';
 import 'injector_container.dart' as di;
-import 'features/main/presentation/cubit/tab_box_cubit.dart';
-import 'features/home/presentation/bloc/movie/movie_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

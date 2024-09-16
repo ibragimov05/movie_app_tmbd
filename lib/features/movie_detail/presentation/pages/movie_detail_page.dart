@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_tmbd/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/blocs.dart';
-import '../widgets/widgets.dart';
-import '../../../../core/core.dart';
 import '../../../../injector_container.dart';
-import '../../../home/data/models/movie/movie.dart';
-import '../../../watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
 
 part '../widgets/movie_detail_page_private_widgets.dart';
 

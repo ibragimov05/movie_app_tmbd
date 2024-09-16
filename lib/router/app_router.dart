@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/home/presentation/page/home_page.dart';
-import '../features/main/presentation/page/main_page.dart';
-import '../features/home/data/models/movie/movie_response.dart';
-import '../features/others/presentation/pages/splash/splash_page.dart';
-import '../features/movie_detail/presentation/pages/movie_detail_page.dart';
-import '../features/others/presentation/pages/internet_connection/internet_connection_page.dart';
+import '../features/home/home.dart';
+import '../features/main/main.dart';
+import '../features/others/others.dart';
+import '../features/movie_detail/movie_detail.dart';
 
 part 'route_names.dart';
 

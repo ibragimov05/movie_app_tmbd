@@ -2,9 +2,8 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:movie_app_tmbd/core/core.dart';
-import 'package:movie_app_tmbd/features/movie_detail/data/models/cast/credits_request.dart';
 
+import '../../../../core/core.dart';
 import '../../data/models/models.dart';
 
 part '../../data/repository/movie_detail_repository_impl.dart';

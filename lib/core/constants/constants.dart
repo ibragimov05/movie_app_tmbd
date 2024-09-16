@@ -1,4 +1,4 @@
-import 'package:movie_app_tmbd/features/home/data/models/genre/genre_response.dart';
+import '../../features/home/data/data.dart';
 
 abstract class Constants {
   const Constants._();

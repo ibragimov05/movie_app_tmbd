@@ -2,7 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:movie_app_tmbd/features/home/data/models/models.dart';
+
+import '../../../../../injector_container.dart';
 
 part 'watch_list_event.dart';
 

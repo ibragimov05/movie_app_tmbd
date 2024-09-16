@@ -1,11 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app_tmbd/core/core.dart';
-import 'package:movie_app_tmbd/features/movie_detail/data/models/cast/credits_request.dart';
-import 'package:movie_app_tmbd/features/movie_detail/domain/repository/movie_detail_repository.dart';
 
-import '../../../data/models/models.dart';
+import '../../../data/data.dart';
+import '../../../domain/domain.dart';
+import '../../../../../core/core.dart';
 
 part 'movie_detail_event.dart';
 

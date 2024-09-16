@@ -1,17 +1,21 @@
 import 'dart:developer';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app_tmbd/features/home/domain/repository/movie_repository.dart';
-import 'package:movie_app_tmbd/features/home/presentation/bloc/movie/movie_bloc.dart';
-import 'package:movie_app_tmbd/features/main/presentation/cubit/tab_box_cubit.dart';
-import 'package:movie_app_tmbd/features/movie_detail/domain/repository/movie_detail_repository.dart';
-import 'package:movie_app_tmbd/features/movie_detail/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
+import 'features/home/home.dart';
+import 'features/main/main.dart';
 import 'core/constants/constants.dart';
-import 'features/watchlist/presentation/bloc/watch_list/watch_list_bloc.dart';
+import 'features/watchlist/watchlist.dart';
+import 'features/movie_detail/movie_detail.dart';
+
+export 'features/home/home.dart';
+export 'features/main/main.dart';
+export 'core/constants/constants.dart';
+export 'features/watchlist/watchlist.dart';
+export 'features/movie_detail/movie_detail.dart';
 
 final GetIt getIt = GetIt.instance;
 

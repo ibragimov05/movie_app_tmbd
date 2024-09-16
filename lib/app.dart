@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_tmbd/core/theme/themes.dart';
-import 'package:movie_app_tmbd/router/app_router.dart';
+
+import 'core/core.dart';
+import 'router/app_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
