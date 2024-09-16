@@ -8,14 +8,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'app.dart';
 import 'core/utils/utils.dart';
 import 'injector_container.dart';
-import 'injector_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kDebugMode) Bloc.observer = LogBlocObserver();
 
-  di.init();
+  init();
 
   /// To store app secrets
   dotenv.load(fileName: '.env');
