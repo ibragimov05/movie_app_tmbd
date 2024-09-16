@@ -17,7 +17,7 @@ void main() async {
   init();
 
   /// To store app secrets
-  dotenv.load(fileName: '.env');
+  await dotenv.load(fileName: '.env');
 
   /// To store bloc's last state to local storage
   HydratedBloc.storage = await HydratedStorage.build(

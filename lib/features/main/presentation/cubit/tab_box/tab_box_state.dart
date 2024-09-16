@@ -1,14 +1,14 @@
 part of 'tab_box_cubit.dart';
 
-class TabBoxState {
+class TabBoxState extends Equatable {
   final int tabBoxCurrentIndex;
   final int popCount;
   final bool canPop;
 
   const TabBoxState({
-    required this.tabBoxCurrentIndex,
-    required this.popCount,
-    required this.canPop,
+    this.tabBoxCurrentIndex = 0,
+    this.popCount = 0,
+    this.canPop = false,
   });
 
   TabBoxState copyWith({
@@ -21,4 +21,7 @@ class TabBoxState {
         popCount: popCount ?? this.popCount,
         canPop: canPop ?? this.canPop,
       );
+
+  @override
+  List<Object> get props => [tabBoxCurrentIndex, popCount, canPop];
 }

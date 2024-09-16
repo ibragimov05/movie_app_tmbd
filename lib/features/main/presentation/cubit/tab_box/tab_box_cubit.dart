@@ -1,12 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'tab_box_state.dart';
 
 class TabBoxCubit extends Cubit<TabBoxState> {
-  TabBoxCubit()
-      : super(
-          const TabBoxState(tabBoxCurrentIndex: 0, popCount: 0, canPop: false),
-        );
+  TabBoxCubit() : super(const TabBoxState());
 
   void changeTabBoxIndex({required int newIndex}) => emit(
         state.copyWith(

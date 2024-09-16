@@ -36,57 +36,59 @@ class _MainPageState extends State<MainPage> with MainMixin {
     return BlocBuilder<TabBoxCubit, TabBoxState>(
       buildWhen: (previous, current) =>
           previous.tabBoxCurrentIndex != current.tabBoxCurrentIndex,
-      builder: (context, state) => PopScope(
-        canPop: state.canPop,
-        onPopInvokedWithResult: _onPopInvoked,
-        child: Scaffold(
-          body: _pages[state.tabBoxCurrentIndex],
-          bottomNavigationBar: Container(
-            padding: AppUtils.kPaddingHor32Ver8,
-            decoration: const BoxDecoration(
-              color: AppColors.mainColor,
-              border: Border(
-                top: BorderSide(color: AppColors.blue, width: 2),
+      builder: (context, state) {
+        return PopScope(
+          canPop: state.canPop,
+          onPopInvokedWithResult: _onPopInvoked,
+          child: Scaffold(
+            body: _pages[state.tabBoxCurrentIndex],
+            bottomNavigationBar: Container(
+              padding: AppUtils.kPaddingHor32Ver8,
+              decoration: const BoxDecoration(
+                color: AppColors.mainColor,
+                border: Border(
+                  top: BorderSide(color: AppColors.blue, width: 2),
+                ),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                _tabBoxIconsPath.length,
-                (index) => GestureDetector(
-                  onTap: () => context
-                      .read<TabBoxCubit>()
-                      .changeTabBoxIndex(newIndex: index),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        _tabBoxIconsPath[index],
-                        colorFilter: state.tabBoxCurrentIndex == index
-                            ? const ColorFilter.mode(
-                                AppColors.blue,
-                                BlendMode.srcIn,
-                              )
-                            : null,
-                      ),
-                      AppUtils.kGap8,
-                      Text(
-                        Constants.tabBoxLabels[index],
-                        style: TextStyle(
-                          color: state.tabBoxCurrentIndex == index
-                              ? AppColors.blue
-                              : const Color(0xFF67686d),
-                          fontWeight: FontWeight.w500,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  _tabBoxIconsPath.length,
+                  (index) => GestureDetector(
+                    onTap: () => context
+                        .read<TabBoxCubit>()
+                        .changeTabBoxIndex(newIndex: index),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          _tabBoxIconsPath[index],
+                          colorFilter: state.tabBoxCurrentIndex == index
+                              ? const ColorFilter.mode(
+                                  AppColors.blue,
+                                  BlendMode.srcIn,
+                                )
+                              : null,
                         ),
-                      ),
-                    ],
+                        AppUtils.kGap8,
+                        Text(
+                          Constants.tabBoxLabels[index],
+                          style: TextStyle(
+                            color: state.tabBoxCurrentIndex == index
+                                ? AppColors.blue
+                                : const Color(0xFF67686d),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
